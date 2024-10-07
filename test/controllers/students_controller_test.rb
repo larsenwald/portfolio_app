@@ -2,13 +2,7 @@ require "test_helper"
 
 class StudentsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @student = Student.create(
-      first_name: "John",
-      last_name: "Doe",
-      school_email: "jdoe@university.edu",
-      major: "CS",
-      expected_graduation_date: "2025-06-01"
-    )
+    @student = students(:one)  # Using fixture
   end
 
   test "should get index" do
@@ -23,9 +17,9 @@ class StudentsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create student" do
     assert_difference("Student.count") do
-      post students_url, params: { student: { first_name: "Jane", last_name: "Smith", school_email: "jsmith@university.edu", major: "IT", expected_graduation_date: "2026-06-01" } }
+      post students_url, params: { student: { first_name: "Jane", last_name: "Smith", school_email: "jsmith@msudenver.edu", major: "IT", expected_graduation_date: "2026-06-01" } }
     end
-
+  
     assert_redirected_to student_url(Student.last)
   end
 
@@ -40,7 +34,7 @@ class StudentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update student" do
-    patch student_url(@student), params: { student: { first_name: "Updated", last_name: "Doe", school_email: "updated@university.edu", major: "CS", expected_graduation_date: @student.expected_graduation_date } }
+    patch student_url(@student), params: { student: { first_name: "Updated", last_name: "Doe", school_email: "updated@msudenver.edu", major: "CS", expected_graduation_date: "2025-06-01" } }
     assert_redirected_to student_url(@student)
   end
 

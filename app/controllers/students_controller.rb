@@ -28,6 +28,9 @@ class StudentsController < ApplicationController
         format.html { redirect_to student_url(@student), notice: "Student was successfully created." }
         format.json { render :show, status: :created, location: @student }
       else
+        # Debugging: log validation errors
+        puts @student.errors.full_messages
+
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @student.errors, status: :unprocessable_entity }
       end
@@ -41,6 +44,9 @@ class StudentsController < ApplicationController
         format.html { redirect_to student_url(@student), notice: "Student was successfully updated." }
         format.json { render :show, status: :ok, location: @student }
       else
+        # Debugging: log validation errors
+        puts @student.errors.full_messages
+
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @student.errors, status: :unprocessable_entity }
       end
@@ -65,6 +71,6 @@ class StudentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def student_params
-      params.require(:student).permit(:first_name, :last_name, :school_email, :major, :expected_graduation_date)
+      params.require(:student).permit(:first_name, :last_name, :school_email, :major, :expected_graduation_date, :profile_picture)
     end
 end

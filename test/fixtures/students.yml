@@ -1,1 +1,13 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+one:
+  first_name: "John"
+  last_name: "Doe"
+  school_email: "jdoe@university.edu"
+  major: "CS"
+  expected_graduation_date: "2025-06-01"
+
+two:
+  first_name: "Jane"
+  last_name: "Smith"
+  school_email: "jsmith@university.edu"
+  major: "IT"
+  expected_graduation_date: "2026-06-01"

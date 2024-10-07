@@ -1,8 +1,7 @@
-<%= form_with(model: student) do |form| %>
+<%= form_with(model: student, local: true, multipart: true) do |form| %> 
   <% if student.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(student.errors.count, "error") %> prohibited this student from being saved:</h2>
-
       <ul>
         <% student.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -34,6 +33,11 @@
   <div>
     <%= form.label :expected_graduation_date, style: "display: block" %>
     <%= form.date_field :expected_graduation_date %>
+  </div>
+
+  <div>
+    <%= form.label :profile_picture, style: "display: block" %>
+    <%= form.file_field :profile_picture %>
   </div>
 
   <div>
