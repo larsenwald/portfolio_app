@@ -2,6 +2,9 @@
 
 <h1>Students</h1>
 
+<!-- Render search form -->
+<%= render 'search_form', search_params: @search_params %>
+
 <div id="students">
   <% @students.each do |student| %>
     <%= render student %>

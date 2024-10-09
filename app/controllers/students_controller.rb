@@ -3,7 +3,12 @@ class StudentsController < ApplicationController
 
   # GET /students or /students.json
   def index
+    @search_params = params[:search] || {}
     @students = Student.all
+
+    if @search_params[:major].present?
+      @students = @students.where(major: @search_params[:major])
+    end
   end
 
   # GET /students/1 or /students/1.json
@@ -28,9 +33,7 @@ class StudentsController < ApplicationController
         format.html { redirect_to student_url(@student), notice: "Student was successfully created." }
         format.json { render :show, status: :created, location: @student }
       else
-        # Debugging: log validation errors
         puts @student.errors.full_messages
-
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @student.errors, status: :unprocessable_entity }
       end
@@ -44,9 +47,7 @@ class StudentsController < ApplicationController
         format.html { redirect_to student_url(@student), notice: "Student was successfully updated." }
         format.json { render :show, status: :ok, location: @student }
       else
-        # Debugging: log validation errors
         puts @student.errors.full_messages
-
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @student.errors, status: :unprocessable_entity }
       end
@@ -56,7 +57,6 @@ class StudentsController < ApplicationController
   # DELETE /students/1 or /students/1.json
   def destroy
     @student.destroy!
-
     respond_to do |format|
       format.html { redirect_to students_url, notice: "Student was successfully destroyed." }
       format.json { head :no_content }
@@ -64,12 +64,10 @@ class StudentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_student
       @student = Student.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def student_params
       params.require(:student).permit(:first_name, :last_name, :school_email, :major, :expected_graduation_date, :profile_picture)
     end

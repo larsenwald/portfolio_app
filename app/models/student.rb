@@ -2,6 +2,9 @@ class Student < ApplicationRecord
   # Active Storage association
   has_one_attached :profile_picture
 
+  # List of valid majors
+  VALID_MAJORS = ['Computer Science', 'Mathematics', 'Physics', 'Biology']  # Add your own majors here
+
   # Validations
   validates :first_name, :last_name, :school_email, :major, :expected_graduation_date, presence: true
   validates :school_email, uniqueness: true
