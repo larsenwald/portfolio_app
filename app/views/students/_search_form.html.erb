@@ -1,9 +1,18 @@
-<%= form_with(url: students_path, method: :get, local: true, class: "form-inline") do |form| %>
-  <div>
-    <%= form.label :major, "Select Major", class: "form-label" %>
-    <%= form.select :major, options_for_select(Student::VALID_MAJORS), { prompt: "Any Major" }, name: 'search[major]', class: "form-control" %>
+<%= form_with url: students_path, method: :get, local: true do |form| %>
+  <div class="mb-3">
+    <%= form.label :major, class: "form-label" %>
+    <%= form.text_field :major, value: @search_params[:major], class: "form-control" %>
   </div>
-  <div>
-    <%= form.submit "Search", class: "btn btn-primary" %>
+
+  <div class="mb-3">
+    <%= form.label :graduation_year, "Graduation Year", class: "form-label" %>
+    <%= form.number_field :graduation_year, value: @search_params[:graduation_year], class: "form-control" %>
   </div>
+
+  <div class="mb-3">
+    <%= form.label :sort_by, class: "form-label" %>
+    <%= form.select :sort_by, [["Name", "name"], ["Graduation Date", "graduation_date"]], selected: @search_params[:sort_by], class: "form-select" %>
+  </div>
+
+  <%= form.submit "Search", class: "btn btn-primary" %>
 <% end %>

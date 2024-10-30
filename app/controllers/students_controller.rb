@@ -6,8 +6,19 @@ class StudentsController < ApplicationController
     @search_params = params[:search] || {}
     @students = Student.all
 
-    if @search_params[:major].present?
-      @students = @students.where(major: @search_params[:major])
+    # Filter by major
+    @students = @students.where(major: @search_params[:major]) if @search_params[:major].present?
+
+    # Additional filtering by graduation year
+    if @search_params[:graduation_year].present?
+      @students = @students.where("extract(year from expected_graduation_date) = ?", @search_params[:graduation_year])
+    end
+
+    # Sorting (by name or graduation date)
+    if @search_params[:sort_by] == "name"
+      @students = @students.order(:first_name, :last_name)
+    elsif @search_params[:sort_by] == "graduation_date"
+      @students = @students.order(:expected_graduation_date)
     end
   end
 

@@ -1,17 +1,21 @@
-<p style="color: green"><%= notice %></p>
+<div class="container mt-4">
+  <h1>Students</h1>
 
-<h1>Students</h1>
+  <!-- Render search form -->
+  <%= render 'search_form', search_params: @search_params %>
 
-<!-- Render search form -->
-<%= render 'search_form', search_params: @search_params %>
+  <div id="students" class="row">
+    <% @students.each do |student| %>
+      <div class="col-md-4 mb-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"><%= student.first_name %> <%= student.last_name %></h5>
+            <%= link_to "Show this student", student, class: "btn btn-primary" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
 
-<div id="students">
-  <% @students.each do |student| %>
-    <%= render student %>
-    <p>
-      <%= link_to "Show this student", student %>
-    </p>
-  <% end %>
+  <%= link_to "New student", new_student_path, class: "btn btn-primary" %>
 </div>
-
-<%= link_to "New student", new_student_path %>

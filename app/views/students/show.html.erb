@@ -1,17 +1,23 @@
-<p style="color: green"><%= notice %></p>
+<div class="container mt-4">
+  <div class="alert alert-success"><%= notice %></div>
 
-<%= render @student %>
+  <div class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title"><%= @student.first_name %> <%= @student.last_name %></h5>
 
-<p>
-  <% if @student.profile_picture.attached? %>
-    <%= image_tag @student.profile_picture.variant(resize_to_limit: [150, nil]) %>
-  <% else %>
-    <%= image_tag 'default-profile-picture.jpg', size: "150x150" %>
-  <% end %>
-</p>
+      <p>
+        <% if @student.profile_picture.attached? %>
+          <%= image_tag @student.profile_picture.variant(resize_to_limit: [150, nil]), class: "img-thumbnail" %>
+        <% else %>
+          <%= image_tag 'default-profile-picture.jpg', size: "150x150", class: "img-thumbnail" %>
+        <% end %>
+      </p>
 
-<div>
-  <%= link_to "Edit this student", edit_student_path(@student) %> |
-  <%= link_to "Back to students", students_path %>
-  <%= button_to "Destroy this student", @student, method: :delete %>
+      <div>
+        <%= link_to "Edit this student", edit_student_path(@student), class: "btn btn-primary" %>
+        <%= link_to "Back to students", students_path, class: "btn btn-secondary" %>
+        <%= button_to "Destroy this student", @student, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+      </div>
+    </div>
+  </div>
 </div>
